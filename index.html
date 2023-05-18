@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body>
+<main><div class="container">
+  <nav class="navbar ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="https://www.aduana.cl/aduana/site/artic/20181121/imag/foto_0000000120181121144429/logo.png" alt="aduana de chile" class="d-inline-block align-text-top">
+      </a>
+    </div>
+  </nav>
+  <div class="row justify-contain-center" >
+    <div class="row">
+      <div class="col-6">
+        <h4>El total de importaciones realizadas es de = <span id="totalImportaciones"></span> </h4>
+      </div>
+      <div class="col-6">
+        <h4>El valor de todos los productos de todas las importaciones es de  = <span id="totalValor"></span> </h4>
+
+      </div>
+    </div>
+    <div class="col-12 col-md-5">
+      <div class="row">
+        <div class="col-8">
+          <h2>Empresas</h2>
+        </div>
+        <div class="col-4">
+          <input class="btn btn-primary" type="button"  id="abrirModalEmpresa" value="Agregar">
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Rut</th>
+          </tr>
+        </thead>
+        <tbody id="tablaEmpresas">
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 col-md-7">
+      <div class="row">
+        <div class="col-10">
+          <h2>Importaciones</h2>
+        </div>
+        <div class="col-2">
+          <input class="btn btn-primary" type="button" id="abrirModalImportaciones" value="Agregar">
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre Empresa</th>
+            <th scope="col">Cantidad productos</th>
+            <th scope="col">Nombre productos</th>
+            <th scope="col">Precio productos</th>
+
+          </tr>
+        </thead>
+        <tbody id="tablaImportaciones">
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
+  
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="index.js" type="module"></script>
+</body>
+</html>
+
+<!-- Modal Empresa -->
+<div class="modal fade" id="modalEmpresa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Agregar Empresa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formEmpresa">
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" id="nombre" class="form-control" placeholder="ingrese nombre">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Rut</label>
+            <input type="text" id="rut" class="form-control" placeholder="ingrese rut">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+        <button class="btn btn-primary" id="agregarEmpresa">Agregar empresa</button>
+      </div>
+    </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Empresa -->
+<div class="modal fade" id="modalImportaciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Agregar Importación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formImportacion">
+          <div class="mb-3">
+            <select class="form-select" aria-label="Default select example" id="idEmpresas">
+              
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Cantidad</label>
+            <input type="number" id="cantidad" class="form-control" placeholder="ingrese cantidad">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nombre del Producto</label>
+            <input type="text" id="nombreProducto" class="form-control" placeholder="ingrese el nombre del producto">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Valor del Producto</label>
+            <input type="number" id="valorProducto" class="form-control" placeholder="ingrese el valor del producto">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+        <button class="btn btn-primary" id="agregarImportacion">Agregar Importacion</button>
+      </div>
+    </form>
+
+    </div>
+  </div>
+</div>
