@@ -1,20 +1,23 @@
 import { Empresa } from "./empresa.js";
 import { Importacion } from "./importacion.js"
 import { Producto } from "./producto.js"
-
+//creacion manual de productos
 let producto = new Producto("papa", 1000, 1);
 let producto2 = new Producto("peras", 2000, 10);
 let nuevaEmpresa;
+//creacion de empresa
 let empresa = new Empresa("EmpresaLinda", "11.111.111-1")
 let empresas = [];
 let importaciones = [];
 empresas.push(empresa)
 let productos = [producto, producto2]
+//creacion de importacion
 let importacion = new Importacion(productos, empresa.getId)
 importaciones.push(importacion)
 console.log(importacion)
 
 let tablaEmpresas = document.getElementById('tablaEmpresas');
+//carga tabla de empresas
 function cargarEmpresas() {
   let empresasCarga = empresas;
   let contTablaEmpresa = "";
@@ -32,7 +35,7 @@ function cargarEmpresas() {
 
 
 const tablaImportaciones = document.getElementById('tablaImportaciones');
-
+//carga tabla de importaciones
 function cargarImportaciones() {
   let contTablaImportaciones = '';
   for (let importacion of importaciones) {
@@ -42,7 +45,7 @@ function cargarImportaciones() {
     let nombreEmpresa = empresa.buscarPorId(importacion._idEmpresa);
 
     let cantidadDeProductos = importacion.getProductos();
-
+//si tiene mas de un producto es array y itera los productos que tiene
     if (Array.isArray(cantidadDeProductos)) {
       for (let producto of importacion.getProductos()) {
         precio += "" + producto.getPrecio() + "<br>"
@@ -59,6 +62,7 @@ function cargarImportaciones() {
         </tr>
       `;
     }
+    //si no es array solo carga la info del producto
     else {
       precio += "" + cantidadDeProductos.getPrecio() + "<br>"
       nombre += "" + cantidadDeProductos.getNombre() + "<br>"
@@ -78,6 +82,7 @@ function cargarImportaciones() {
 
 
 }
+//metodo para crear una empresa desde el modal 
 document.getElementById("agregarEmpresa").addEventListener("click", function (event) {
   event.preventDefault();
   let nombreEmpresa = document.getElementById("nombre").value;
@@ -85,11 +90,13 @@ document.getElementById("agregarEmpresa").addEventListener("click", function (ev
   nuevaEmpresa = new Empresa(nombreEmpresa, rutEmpresa)
   empresas.push(nuevaEmpresa);
   document.getElementById("formEmpresa").reset();
-
+//recargar tabla
   cargarEmpresas();
+  //cerrar modal
   $('#modalEmpresa').modal('hide');
 
 })
+//crear importacion desde modal
 document.getElementById("agregarImportacion").addEventListener("click", function (event) {
   event.preventDefault();
 
@@ -105,24 +112,27 @@ document.getElementById("agregarImportacion").addEventListener("click", function
 
   importaciones.push(nuevaImportacion)
   document.getElementById("formImportacion").reset();
-
+//recarga la tabla de importaciones
   cargarImportaciones();
+//cierra model
   $('#modalImportaciones').modal('hide');
+  //carga metodo para ver los totales
   cargartotales();
 })
 
 
-
+//abrir modal empresa
 $('#abrirModalEmpresa').click(function () {
   $('#modalEmpresa').modal('show');
 });
 let selectEmpresa;
-
+//abrir modal importaciones
 $('#abrirModalImportaciones').click(function () {
+  //carga las empresas al selector de modal
   cargarEmpresasEnSelect();
   $('#modalImportaciones').modal('show');
 });
-
+//genera los options de select empresas
 function cargarEmpresasEnSelect() {
   selectEmpresa = document.getElementById("idEmpresas");
   selectEmpresa.innerHTML = '';
@@ -137,6 +147,7 @@ function cargarEmpresasEnSelect() {
 
 const totalValor = document.getElementById("totalValor");
 const totalImpFront = document.getElementById("totalImportaciones"); 
+//genera el texto con los totales 
 function cargartotales(){
   let contTV = "";
   let contTIF = "";
